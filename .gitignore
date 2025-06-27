@@ -1,0 +1,5 @@
+# Ignore all CSV files
+*.csv
+
+# Ignore all Joblib model files
+*.joblib
