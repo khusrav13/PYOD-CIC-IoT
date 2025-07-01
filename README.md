@@ -1,47 +1,47 @@
-# IoT Sentinel: Unsupervised Anomaly Detection in IoT Networks
+IoT Sentinel: (SEMI) --- Unsupervised Anomaly Detection in IoT Networks
+This project focuses on identifying anomalous network traffic within an Internet of Things (IoT) environment using unsupervised machine learning techniques. By training models exclusively on benign traffic from the CIC-IoT-Dataset-2023, we build a baseline of "normal" behavior, then test on real backdoor‐malware captures to measure detection performance.
 
-This project focuses on identifying anomalous network traffic within an Internet of Things (IoT) environment using unsupervised machine learning techniques. By training models exclusively on benign traffic from the **CIC-IoT-Dataset-2023**, we build a baseline of "normal" behavior, then test on real backdoor‐malware captures to measure detection performance.
+🚀 Project Overview
+Goal: Detect deviations from benign IoT network behavior (zero‐day, signature‐free).
 
----
+Datasets:
 
-## 🚀 Project Overview
+Benign: BenignTraffic.pcap.csv
 
-- **Goal:** Detect deviations from benign IoT network behavior (zero‐day, signature‐free).
-- **Datasets:**
-  - **Benign**: `BenignTraffic.pcap.csv`  
-  - **Malware**: `Backdoor_Malware.pcap.csv`
-- **Models:** PyOD outlier detectors trained on **benign only**, then evaluated on both benign & backdoor.
-  - Isolation Forest (IForest)
-  - LOF
-  - KNN
-  - AutoEncoder
-  - *(You can also add ECOD & COPOD)*
+Malware: Backdoor_Malware.pcap.csv
 
----
+Models: PyOD outlier detectors trained on benign only, then evaluated on both benign & backdoor.
 
-## 📁 Repository Structure
+Isolation Forest (IForest)
 
+LOF
+
+KNN
+
+AutoEncoder
+
+(You can also add ECOD & COPOD)
+
+📁 Repository Structure
 ├── data/
-│ ├── Benign_Final/
-│ │ └── BenignTraffic.pcap.csv
-│ └── Backdoor_Malware/
-│ └── Backdoor_Malware.pcap.csv
+│   ├── Benign_Final/
+│   │   └── BenignTraffic.pcap.csv
+│   └── Backdoor_Malware/
+│       └── Backdoor_Malware.pcap.csv
 ├── notebooks/
-│ ├── 0_data_ingest.ipynb
-│ ├── 1_train_on_benign.ipynb
-│ └── 2_test_on_backdoor.ipynb
+│   ├── 0_data_ingest.ipynb
+│   ├── 1_train_on_benign.ipynb
+│   └── 2_test_on_backdoor.ipynb
 ├── results/
-│ ├── backdoor_malware/
-│ └── evaluation_curves/
+│   ├── backdoor_malware/
+│   └── evaluation_curves/
 ├── src/
-│ ├── train.py
-│ └── evaluate.py
+│   ├── train.py
+│   └── evaluate.py
 ├── requirements.txt
 └── README.md
 
-
-## 🛠️ Installation
-
+🛠️ Installation
 git clone <your-repo-url>
 cd IOT_SENTINEL
 
@@ -55,6 +55,7 @@ pip install -r requirements.txt
 python src/train.py \
   --input data/Benign_Final/BenignTraffic.pcap.csv \
   --output results/backdoor_malware
+
 2. Evaluate on Backdoor & Benign
 
 python src/evaluate.py \
@@ -63,20 +64,16 @@ python src/evaluate.py \
   --models results/backdoor_malware/*.joblib \
   --output results/evaluation_curves
 
-
- Evaluation
+📈 Evaluation
 We perform semi‐supervised evaluation:
 
 Train each model on benign traffic only.
 
-Score both benign (false-positive rate) and backdoor (true-positive rate).
+Score both benign (for false-positive rate) and backdoor (for true-positive rate) traffic.
 
 Compute ROC & Precision–Recall curves, AUCs, and TPR @ 5% FPR.
 
 Example: evaluate_performance() Stub
-python
-Copy
-Edit
 from sklearn.metrics import roc_curve, auc, precision_recall_curve
 import numpy as np
 import matplotlib.pyplot as plt
@@ -118,12 +115,9 @@ def evaluate_performance(model_name, y_true, y_scores, results_dir):
     plt.savefig(results_dir / f'pr_{model_name}.png')
     plt.close('all')
 
-
-
 🔍 Next Steps
 Feature Engineering: rolling‐window rates, interarrival‐time features, payload‐entropy.
 
 Hyperparameter Tuning: sweep contamination & neighbor counts.
 
 Ensemble Strategies: majority‐vote or score‐averaging across detectors.
-
