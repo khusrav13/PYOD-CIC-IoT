@@ -22,24 +22,7 @@ AutoEncoder
 
 (You can also add ECOD & COPOD)
 
-📁 Repository Structure
-├── data/
-│   ├── Benign_Final/
-│   │   └── BenignTraffic.pcap.csv
-│   └── Backdoor_Malware/
-│       └── Backdoor_Malware.pcap.csv
-├── notebooks/
-│   ├── 0_data_ingest.ipynb
-│   ├── 1_train_on_benign.ipynb
-│   └── 2_test_on_backdoor.ipynb
-├── results/
-│   ├── backdoor_malware/
-│   └── evaluation_curves/
-├── src/
-│   ├── train.py
-│   └── evaluate.py
-├── requirements.txt
-└── README.md
+
 
 🛠️ Installation
 git clone <your-repo-url>
@@ -121,3 +104,231 @@ Feature Engineering: rolling‐window rates, interarrival‐time features, paylo
 Hyperparameter Tuning: sweep contamination & neighbor counts.
 
 Ensemble Strategies: majority‐vote or score‐averaging across detectors.
+
+
+
+# Backdoor Malware Dataset Analysis Report
+
+**Generated on:** 2025-06-27 20:00:59
+
+## Dataset Overview
+
+- **Dataset Shape:** 3218 rows × 39 columns
+- **File Path:** `../../../data/Backdoor_Malware/Backdoor_Malware.pcap.csv`
+- **Missing Values:** 0 total missing values
+
+## Dataset Information
+
+### Basic Statistics
+- **Total Records:** 3,218
+- **Total Features:** 39
+- **Memory Usage:** 0.96 MB
+
+### Data Types Distribution
+- **float64:** 30 columns
+- **int64:** 9 columns
+
+### Missing Values Summary
+✅ No missing values found in the dataset.
+
+## Data Visualizations
+
+### Feature Distributions
+
+#### Header_Length
+![Distribution of Header_Length](distribution_Header_Length.png)
+
+#### Protocol Type
+![Distribution of Protocol Type](distribution_Protocol_Type.png)
+
+#### Time_To_Live
+![Distribution of Time_To_Live](distribution_Time_To_Live.png)
+
+#### Rate
+![Distribution of Rate](distribution_Rate.png)
+
+#### fin_flag_number
+![Distribution of fin_flag_number](distribution_fin_flag_number.png)
+
+### Feature Correlation Analysis
+![Feature Correlation Heatmap](correlation_heatmap.png)
+
+## Statistical Summary
+
+### Key Numeric Features Summary
+| Feature | Mean | Std | Min | Max |
+|---------|------|-----|-----|-----|
+| Header_Length | 21.0175 | 7.8722 | 4.0000 | 34.4000 |
+| Protocol Type | 9.0059 | 5.0562 | 0.0000 | 17.0000 |
+| Time_To_Live | 108.9486 | 45.6627 | 35.6000 | 248.6000 |
+| Rate | 2891.9642 | 30984.4099 | 0.0104 | 1233618.8235 |
+| fin_flag_number | 0.0188 | 0.0487 | 0.0000 | 0.4000 |
+| syn_flag_number | 0.0284 | 0.0600 | 0.0000 | 0.4000 |
+| rst_flag_number | 0.0017 | 0.0157 | 0.0000 | 0.4000 |
+| psh_flag_number | 0.1987 | 0.1666 | 0.0000 | 0.9000 |
+| ack_flag_number | 0.5833 | 0.3078 | 0.0000 | 1.0000 |
+| ece_flag_number | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+
+
+## Key Insights
+
+1. **Dataset Size:** The dataset contains 3,218 records with 39 features, suitable for machine learning analysis.
+
+2. **Data Quality:** ✅ Clean dataset with no missing values
+
+3. **Feature Types:** 
+   - Numeric features: 39
+   - Categorical features: 0
+
+4. **Potential for Analysis:** This dataset appears well-suited for:
+   - Anomaly detection using PyOD
+   - Classification tasks
+   - Network security analysis
+   - IoT malware detection
+
+## Recommendations for PyOD Analysis
+
+1. **Preprocessing Steps:**
+   - Consider feature scaling/normalization
+   - Handle categorical variables if needed
+   - Remove highly correlated features if necessary
+
+2. **Suitable PyOD Algorithms:**
+   - Isolation Forest
+   - Local Outlier Factor (LOF)
+   - One-Class SVM
+   - AutoEncoder-based methods
+
+3. **Evaluation Strategy:**
+   - Use the label column for evaluation (if available)
+   - Apply train-test split
+   - Consider cross-validation for robust results
+
+## Files Generated
+
+- `dataset_info.txt` - Basic dataset information
+- `summary_statistics.csv` - Statistical summary
+- `missing_values.csv` - Missing values analysis
+- `categorical_analysis.txt` - Categorical features analysis
+- `first_5_rows.csv` - Sample data preview
+- Various PNG files for visualizations
+
+---
+*Report generated using automated analysis script*
+
+
+
+
+
+
+BACKDOOR_MALWARE
+
+# Comprehensive Anomaly Detection Report
+
+## IsolationForest
+
+### Overview
+- Total data points: 3218
+- Detected outliers: 161
+- Contamination rate: 5.0031%
+
+### Visualization
+![IsolationForest](visualization_IsolationForest.png){ width=600px }
+
+### Artifacts
+- [Predictions CSV](predictions_IsolationForest.csv)
+- [Text report](summary_report_IsolationForest.txt)
+
+### Statistical Summaries
+- Inlier score mean: -0.0880, std: 0.0342
+- Outlier score mean: 0.0332, std: 0.0297
+
+### Top 5 Most Anomalous Points
+|      |   anomaly_score |
+|-----:|----------------:|
+|  272 |        0.134584 |
+|  618 |        0.129274 |
+| 1324 |        0.126925 |
+|  115 |        0.119369 |
+| 2600 |        0.102811 |
+
+## LOF
+
+### Overview
+- Total data points: 3218
+- Detected outliers: 161
+- Contamination rate: 5.0031%
+
+### Visualization
+![LOF](visualization_LOF.png){ width=600px }
+
+### Artifacts
+- [Predictions CSV](predictions_LOF.csv)
+- [Text report](summary_report_LOF.txt)
+
+### Statistical Summaries
+- Inlier score mean: 1.0897, std: 0.1189
+- Outlier score mean: 3.9057, std: 5.2637
+
+### Top 5 Most Anomalous Points
+|      |   anomaly_score |
+|-----:|----------------:|
+|  944 |         34.0908 |
+| 1249 |         24.9757 |
+| 1012 |         24.2089 |
+|  927 |         22.2564 |
+| 1224 |         21.9304 |
+
+## KNN
+
+### Overview
+- Total data points: 3218
+- Detected outliers: 161
+- Contamination rate: 5.0031%
+
+### Visualization
+![KNN](visualization_KNN.png){ width=600px }
+
+### Artifacts
+- [Predictions CSV](predictions_KNN.csv)
+- [Text report](summary_report_KNN.txt)
+
+### Statistical Summaries
+- Inlier score mean: 1.4408, std: 0.7688
+- Outlier score mean: 6.0460, std: 6.6041
+
+### Top 5 Most Anomalous Points
+|      |   anomaly_score |
+|-----:|----------------:|
+| 3217 |         56.7556 |
+|  927 |         55.7658 |
+| 2001 |         30.8562 |
+|  997 |         28.465  |
+| 2891 |         18.5361 |
+
+## AutoEncoder
+
+### Overview
+- Total data points: 3218
+- Detected outliers: 161
+- Contamination rate: 5.0031%
+
+### Visualization
+![AutoEncoder](visualization_AutoEncoder.png){ width=600px }
+
+### Artifacts
+- [Predictions CSV](predictions_AutoEncoder.csv)
+- [Text report](summary_report_AutoEncoder.txt)
+
+### Statistical Summaries
+- Inlier score mean: 3.2550, std: 1.2553
+- Outlier score mean: 11.2495, std: 6.5634
+
+### Top 5 Most Anomalous Points
+|      |   anomaly_score |
+|-----:|----------------:|
+| 3217 |         56.7863 |
+|  927 |         56.1826 |
+| 2001 |         39.7269 |
+| 2891 |         35.985  |
+|  997 |         26.5697 |
